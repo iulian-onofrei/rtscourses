@@ -17,11 +17,11 @@
         <div class="bg-white rounded shadow-sm"><img src="/storage/{{ $course->img_src }}" alt="" class="img-fluid card-img-top mw-100 mh-100">
           <div class="p-4">
             <h5> <a href="{{ route('course', ['id' => $course->id]) }}" class="text-dark">{{ $course->title }}</a></h5>
-            @if($course->user->id == Auth::user()->id)
-            <form method="post" action="{{ route('delete', ['id' => $course->id]) }}">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-              <button class="btn btn-danger profile-button btn-sm float-top float-end" type="submit">{{__('Șterge')}}</button>
-            </form>
+            @if(Auth::check() && $course->user->id == Auth::user()->id)
+              <form method="post" action="{{ route('delete', ['id' => $course->id]) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                <button class="btn btn-danger profile-button btn-sm float-top float-end" type="submit">{{__('Șterge')}}</button>
+              </form>
             @endif
             <p class="small text-muted mb-0">{{ $course->description }}</p>
             <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
